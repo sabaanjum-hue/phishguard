@@ -1,0 +1,181 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    min-height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+}
+
+header {
+    text-align: center;
+    padding: 45px 20px 25px;
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+header p {
+    margin-top: 8px;
+    color: #94a3b8;
+}
+
+.hero {
+    background: #1e293b;
+    padding: 45px;
+    border-radius: 18px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    color: #94a3b8;
+    max-width: 650px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+}
+
+.input-area {
+    display: flex;
+    gap: 12px;
+    max-width: 750px;
+    margin: auto;
+}
+
+input {
+    flex: 1;
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid #475569;
+    background: #0f172a;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    padding: 16px 25px;
+    border: none;
+    border-radius: 10px;
+    background: #38bdf8;
+    color: #082f49;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #7dd3fc;
+}
+
+.result-card {
+    margin-top: 25px;
+    padding: 30px;
+    border-radius: 18px;
+    text-align: center;
+}
+
+.result-card.safe {
+    background: #064e3b;
+    border: 1px solid #10b981;
+}
+
+.result-card.danger {
+    background: #450a0a;
+    border: 1px solid #ef4444;
+}
+
+.result-card.warning {
+    background: #451a03;
+    border: 1px solid #f59e0b;
+}
+
+.result-card h2 {
+    font-size: 28px;
+}
+
+.confidence {
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+.scanned-url {
+    margin-top: 15px;
+    color: #cbd5e1;
+    word-break: break-all;
+}
+
+.features {
+    background: #1e293b;
+    margin-top: 25px;
+    padding: 30px;
+    border-radius: 18px;
+}
+
+.features h2 {
+    margin-bottom: 20px;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.feature-grid div {
+    background: #0f172a;
+    padding: 18px;
+    border-radius: 12px;
+}
+
+.feature-grid span {
+    display: block;
+    color: #94a3b8;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.feature-grid strong {
+    font-size: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 35px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+@media (max-width: 700px) {
+    .input-area {
+        flex-direction: column;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding: 30px 20px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+}
