@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishGuard | URL Security Scanner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🛡️ PhishGuard</div>
+            <p>Machine Learning Powered URL Security</p>
+        </header>
+
+        <main>
+            <section class="hero">
+                <h1>Detect Phishing URLs</h1>
+                <p>
+                    Enter a website URL and let PhishGuard analyze its
+                    security characteristics using machine learning.
+                </p>
+
+                <form method="POST">
+                    <div class="input-area">
+                        <input
+                            type="text"
+                            name="url"
+                            placeholder="https://example.com"
+                            value="{{ url }}"
+                        >
+                        <button type="submit">Analyze URL</button>
+                    </div>
+                </form>
+            </section>
+
+            {% if result %}
+            <section class="result-card
+                {% if 'Phishing' in result %}
+                    danger
+                {% elif 'Legitimate' in result %}
+                    safe
+                {% else %}
+                    warning
+                {% endif %}
+            ">
+                <h2>
+                    {% if 'Phishing' in result %}
+                        🚨
+                    {% elif 'Legitimate' in result %}
+                        ✅
+                    {% else %}
+                        ⚠️
+                    {% endif %}
+                    {{ result }}
+                </h2>
+
+                {% if confidence %}
+                <p class="confidence">
+                    Confidence: <strong>{{ confidence }}%</strong>
+                </p>
+                {% endif %}
+
+                <p class="scanned-url">{{ url }}</p>
+            </section>
+            {% endif %}
+
+            {% if features %}
+            <section class="features">
+                <h2>URL Analysis</h2>
+
+                <div class="feature-grid">
+                    <div>
+                        <span>URL Length</span>
+                        <strong>{{ features.url_length }}</strong>
+                    </div>
+                    <div>
+                        <span>Hostname Length</span>
+                        <strong>{{ features.hostname_length }}</strong>
+                    </div>
+                    <div>
+                        <span>Subdomains</span>
+                        <strong>{{ features.num_subdomains }}</strong>
+                    </div>
+                    <div>
+                        <span>HTTPS</span>
+                        <strong>
+                            {% if features.has_https %}Yes{% else %}No{% endif %}
+                        </strong>
+                    </div>
+                    <div>
+                        <span>IP Address</span>
+                        <strong>
+                            {% if features.has_ip_address %}Detected{% else %}No{% endif %}
+                        </strong>
+                    </div>
+                    <div>
+                        <span>Suspicious Keywords</span>
+                        <strong>
+                            {% if features.has_suspicious_word %}Detected{% else %}None{% endif %}
+                        </strong>
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+        </main>
+
+        <footer>
+            <p>PhishGuard • Educational Machine Learning Cybersecurity Project</p>
+            <p>Model trained using URL-based features</p>
+        </footer>
+    </div>
+</body>
+</html>
