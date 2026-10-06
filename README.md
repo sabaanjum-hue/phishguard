@@ -145,11 +145,11 @@ http://127.0.0.1:5000
 
 ### Legitimate URL detection
 
-![PhishGuard legitimate URL result](screenshots/legitimate-url.jpg)
+![PhishGuard legitimate URL result](screenshots/legitimate-url.png)
 
 ### Potential phishing URL detection
 
-![PhishGuard phishing URL result](screenshots/phishing-url.jpg)
+![PhishGuard phishing URL result](screenshots/phishing-url.png)
 
 ## Example tests
 
