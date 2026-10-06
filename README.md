@@ -141,6 +141,16 @@ Open:
 http://127.0.0.1:5000
 ```
 
+## Screenshots
+
+### Legitimate URL detection
+
+![PhishGuard legitimate URL result](screenshots/legitimate-url.jpg)
+
+### Potential phishing URL detection
+
+![PhishGuard phishing URL result](screenshots/phishing-url.jpg)
+
 ## Example tests
 
 Legitimate example:
