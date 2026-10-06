@@ -8,3 +8,6 @@ env/
 *.joblib
 *.pkl
 .DS_Store
+
+# Local phishing dataset (do not commit raw data)
+data/PhiUSIIL_Phishing_URL_Dataset.csv
