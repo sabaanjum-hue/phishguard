@@ -3,35 +3,39 @@
 Run:
     python src/download_dataset.py
 
-The raw CSV is saved under data/ and is ignored by Git.
+The official UCI download is a ZIP archive. The extracted CSV is saved under
+data/ and is ignored by Git.
 """
 
 from pathlib import Path
+from urllib.request import urlopen
+from zipfile import ZipFile
+from io import BytesIO
 
-from ucimlrepo import fetch_ucirepo
-
-
-OUTPUT = Path("data/PhiUSIIL_Phishing_URL_Dataset.csv")
+DATA_DIR = Path("data")
+OUTPUT = DATA_DIR / "PhiUSIIL_Phishing_URL_Dataset.csv"
+DOWNLOAD_URL = "https://archive.ics.uci.edu/static/public/967/phiusiil%2Bphishing%2Burl%2Bdataset.zip"
 
 
 def main() -> None:
-    print("Downloading UCI PhiUSIIL dataset...")
-    dataset = fetch_ucirepo(id=967)
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-    features = dataset.data.features
-    targets = dataset.data.targets
+    print("Downloading PhiUSIIL dataset from the official UCI repository...")
+    with urlopen(DOWNLOAD_URL, timeout=120) as response:
+        archive = BytesIO(response.read())
 
-    # The UCI target column is expected to be named "label".
-    if "label" not in targets.columns:
-        raise ValueError(f"Expected target column 'label', found: {list(targets.columns)}")
+    print("Extracting dataset...")
+    with ZipFile(archive) as zip_file:
+        csv_files = [name for name in zip_file.namelist() if name.lower().endswith(".csv")]
+        if not csv_files:
+            raise RuntimeError("No CSV file found inside the UCI dataset archive.")
 
-    combined = features.copy()
-    combined["label"] = targets["label"].values
+        source_name = csv_files[0]
+        with zip_file.open(source_name) as source, OUTPUT.open("wb") as target:
+            target.write(source.read())
 
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    combined.to_csv(OUTPUT, index=False)
-
-    print(f"Saved {len(combined):,} rows to {OUTPUT}")
+    print(f"Saved dataset to: {OUTPUT}")
+    print("You can now run: python src/train_model.py")
 
 
 if __name__ == "__main__":
