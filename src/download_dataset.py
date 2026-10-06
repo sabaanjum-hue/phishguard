@@ -9,6 +9,8 @@ data/ and is ignored by Git.
 
 from pathlib import Path
 from urllib.request import urlopen
+import ssl
+import certifi
 from zipfile import ZipFile
 from io import BytesIO
 
@@ -21,7 +23,8 @@ def main() -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
 
     print("Downloading PhiUSIIL dataset from the official UCI repository...")
-    with urlopen(DOWNLOAD_URL, timeout=120) as response:
+    ssl_context = ssl.create_default_context(cafile=certifi.where())
+    with urlopen(DOWNLOAD_URL, timeout=120, context=ssl_context) as response:
         archive = BytesIO(response.read())
 
     print("Extracting dataset...")
